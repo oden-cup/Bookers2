@@ -1,0 +1,84 @@
+<div class="flash">
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+</div>
+
+
+
+
+<div class="container">
+   <% if @book.errors.any? %>
+         <div id="error_explanation" class="alert alert-danger">
+           <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
+           <ul>
+             <% @book.errors.full_messages.each do |message| %>
+             <li><%= message %></li>
+                 <% end %>
+           </ul>
+         </div>
+        <% end %>
+  </div>
+<div class="container clearfix">
+  <div class="row">
+    <div class="col-xs-3" style="background-color: white">
+      <h2>User info</h2>
+      <%= attachment_image_tag current_user, :profile_image, fallback: "no_image.jpg", size:"100x100" %>
+      <table class="table table-hover">
+
+        <tbody>
+          <tr>
+            <td>name</td>
+            <td><%= current_user.name %></td>
+          </tr>
+          <tr>
+            <td>Introduction</td>
+            <td><%= current_user.introduction %></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+<%= link_to "", edit_user_path(current_user.id), class:  " col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+
+
+
+
+      <h1>New book</h1>
+
+      <%= form_for(@book) do |f| %>
+
+        <p>Title</p>
+        <%= f.text_field :title , class: "edit-title"%>
+
+        <p>Body</p>
+        <%= f.text_area :body, class: "edit-body"%>
+        <br>
+        <%= f.submit 'Create Book', class: "btn btn-primary" %>
+
+      <% end %>
+    </div>
+
+    <div class="col-xs-9" style="background-color: white">
+      <h1>Books</h1>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><P>image</P></th>
+            <th><P>title</P></th>
+            <th><P>opinion</P></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+            <tr class="new-table">
+              <td><span><%= attachment_image_tag book.user, :profile_image, :fill, 50, 50, format: 'jpeg' %></span></td>
+              <td><span><%= link_to book.title, "/books/#{book.id}"%></span></td>
+              <td><span><%= book.body %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+
+<div class="container">
+ <div class="row">
+  <div class="col-xs-3" style="background-color: white">
+      <% if flash[:notice] %>
+      <p id="notice"><%= flash[:notice] %></p>
+      <% end %>
+
+ 		<h2>User info</h2>
+        <%= attachment_image_tag @book.user, :profile_image, fallback: "no_image.jpg", size:"100x100" %>
+<table class="table table-hover">
+
+ 			<tbody>
+ 				 <tr>
+ 					<td>name</td>
+ 					<td><%= @book.user.name %></td>
+ 				 </tr>
+ 				 <tr>
+ 					<td>Introduction</td>
+          <td><%= @book.user.introduction %></td>
+ 				 </tr>
+ 			</tbody>
+ 		</table>
+
+
+<%= link_to(edit_user_path(current_user.id), class:  " col-xs-12 btn btn-default") do %>
+                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+<% end %>
+
+<h1>New book</h1>
+
+<%= form_for(@book_new) do |f| %>
+
+  <p>Title</p>
+  <%= f.text_field :title , class: "edit-title"%>
+
+  <p>Body</p>
+  <%= f.text_area :body, class: "edit-body"%>
+  <br>
+  <%= f.submit 'Create Book', class: "btn btn-primary" %>
+
+<% end %>
+</div>
+
+
+<div class="col-xs-9" style="background-color: white">
+  <h1>Book detail</h1>
+
+
+
+    <table class="table table-striped">
+             <thead>
+             </thead>
+             <tbody>
+               <div class="flash">
+              <% flash.each do |key, value| %>
+              <%= content_tag(:div, value, class: "#{key}") %>
+              <% end %>
+          </div>
+
+          <table class="table table-hover">
+             <thead>
+             </thead>
+   <tbody>
+        <td><span><%= attachment_image_tag @book.user, :profile_image, :fill, 50, 50, format: 'jpeg' %></span><br>
+          <%= link_to @book.user.name, user_path(@book.user.id) %></td>
+        <td><%= @book.title %></td>
+        <td><%= @book.body %></td>
+
+       <% if current_user.id == @book.user_id %>
+        <td><h4><span class="label label-success"><%= link_to "edit", edit_book_path(@book.id) %></span></h4></td>
+        <td><h4><span class="label label-danger"><%= link_to "destroy", book_path(@book), method: :delete, "data-confirm" =>"Are you sure？" %></span></h4></td>
+       <% else %>
+        <td></td>
+        <td></td>
+
+       <% end %>
+     </tbody>
+  </table>
+</div>
+

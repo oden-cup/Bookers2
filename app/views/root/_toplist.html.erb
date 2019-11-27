@@ -1,0 +1,53 @@
+
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+<nav class="nav-top clearfix">
+<nav class="nav navbar-dark navbar-left">
+      <h2>Bookers</h2>
+    </nav>
+
+  <div class="slidemenu">
+   <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
+　　<% if user_signed_in? %>
+      <li>
+        <a class="glyphicon glyphicon-home home" href="/users/current_user.id"> Home</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-user users" href="/books"> Users</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-book books" href="/books/new"> Books</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-log-out logout" rel="nofollow" data-method="delete" href="/users/sign_out"> logout</a>
+      </li>
+
+    <% else %>
+      <li class="">
+        <a class="glyphicon glyphicon-home home" href="/"> Home</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-link about" href="/about"> About</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-edit sign_up" href="/users/sign_up"> sign up</a>
+      </li>
+
+      <li class="">
+        <a class="glyphicon glyphicon-log-in sign_in" href="/users/sign_in"> login</a>
+      </li>
+    <% end %>
+
+
+  </ul>
+  </div>
+</div>
+</nav>
+</header>
+</body>
+</html>
